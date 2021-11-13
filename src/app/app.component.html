@@ -1,0 +1,170 @@
+<div class="container">
+  <div class="row">
+    <h3>Employee Detail</h3>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <form [formGroup]="userDetailsForm" (ngSubmit)="onSubmit()" >
+        <div class="row border mb-3 p-1">
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input
+                type="text"
+                formControlName="firstName"
+                class="form-control"
+                id="firstName"
+                placeholder="First Name"
+              />
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input
+                type="text"
+                formControlName="lastName"
+                class="form-control"
+                id="lastName"
+                placeholder="Last Name"
+              />
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                formControlName="email"
+                class="form-control"
+                id="email"
+                placeholder="abc@xyz.com"
+              />
+              <small *ngIf="userForm.get('email')?.errors" class="text-danger"
+                >Invalid email address!</small
+              >
+            </div>
+          </div>
+          <div class="col-sm-11 col-md-3 col-lg-3">
+            <div class="mb-3">
+              <label for="totalExperience" class="form-label"
+                >Total Experience</label
+              >
+              <input
+                type="number"
+                formControlName="totalExperience"
+                class="form-control"
+                id="totalExperience"
+                placeholder="Total Experience"
+              />
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" class="add-button" (click)="addExperience()">
+              <i class="far fa-plus-square"> <small> Add Experience</small></i>
+              
+            </button>
+          </div>
+        </div>
+          <div
+            class="col-sm-12 col-md-12 col-lg-12"
+            formArrayName="experienceHistory"
+          >
+            <div
+              *ngFor="
+                let skill of getExperienceFormArray().controls;
+                let i = index
+              "
+            >
+              <div [formGroupName]="i" class="row border mb-3 p-1">
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                  <div class="mb-3">
+                    <label for="companyName" class="form-label"
+                      >Company Name</label
+                    >
+                    <input
+                      type="text"
+                      formControlName="companyName"
+                      class="form-control"
+                      id="companyName"
+                      placeholder="Company Name"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                  <div class="mb-3">
+                    <label for="experienceInYears" class="form-label"
+                      >Experience</label
+                    >
+                    <input
+                      type="number"
+                      formControlName="experienceInYears"
+                      class="form-control"
+                      id="experienceInYears"
+                      placeholder="Experience"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-4">
+                  <button
+                  type="button"
+                  class="remove-button"
+                  (click)="removeExperience(i)"
+                >
+                  <i class="far fa-minus-square"> <small> Remove Experience</small> </i>
+                </button>
+                <button
+                  type="button"
+                  class="add-button"
+                  (click)="addAchivement(i)"
+                >
+                  <i class="far fa-plus-square"><small> Add Achivement</small></i>
+                </button>
+                </div>
+                <div
+                  class="col-sm-12 col-md-12 col-lg-12"
+                  formArrayName="achivements"
+                >
+                  <div
+                    *ngFor="
+                      let achivement of getAchivementFormArray(i).controls;
+                      let ix = index
+                    "
+                  >
+                    <div class="row" [formGroupName]="ix">
+                      <div class="col-sm-11 col-md-6 col-lg-6">
+                        <div class="mb-3">
+                          <label for="achivementName" class="form-label"
+                            >Achivement Name</label
+                          >
+                          <input
+                            type="text"
+                            formControlName="achivementName"
+                            class="form-control"
+                            id="achivementName"
+                            placeholder="Achivement Name"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <button
+                          type="button"
+                          class="remove-button"
+                          (click)="removeAchivement(i, ix)"
+                        >
+                          <i class="far fa-minus-square"> <small> Remove Achivement</small></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        <div class="col-lg-12 me-auto">
+          <button type="submit" class="btn btn-primary mb-3">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
