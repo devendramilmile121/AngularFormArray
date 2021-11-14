@@ -23,12 +23,14 @@ export class AppComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
+    // initilize form
     this.initilizeForm();
     if (this.userId) {
       this.getUserDetails();
     }
   }
 
+  // dummy api call
   getUserDetails() {
     const user = new UserDTO();
     user.firstName = 'Matthew';
@@ -71,6 +73,7 @@ export class AppComponent implements OnInit {
     this.initilizeForm(user);
   }
 
+  // initilize and patch form values
   initilizeForm(user?: UserDTO) {
     this.userDetailsForm = this.formBuilder.group({
       id: [user?.id],
@@ -86,10 +89,12 @@ export class AppComponent implements OnInit {
     });
   }
 
+  // get form
   get userForm() {
     return this.userDetailsForm;
   }
 
+  // add experience
   addExperience(experience?: ExperienceDTO) {
     const exp = this.getExperienceFormArray();
     exp.push(
@@ -107,6 +112,7 @@ export class AppComponent implements OnInit {
     });
   }
 
+  // add achivement in experience index and achivement object
   addAchivement(indexExp: number, achivement?: AchivementDTO) {
     const ach = this.getAchivementFormArray(indexExp);
     ach.push(
@@ -117,11 +123,13 @@ export class AppComponent implements OnInit {
     );
   }
 
+  // get all controls experience array
   getExperienceFormArray() {
     const exp = <FormArray>this.userDetailsForm.get('experienceHistory');
     return exp;
   }
 
+  // get all control of achivement arrya by experience index
   getAchivementFormArray(indexExp: number) {
     const exp = this.getExperienceFormArray();
     const expAtIndex = exp.at(indexExp);
@@ -129,16 +137,19 @@ export class AppComponent implements OnInit {
     return ach;
   }
 
+  // remove experience by index
   removeExperience(index: number) {
     const exper = this.getExperienceFormArray();
     exper.removeAt(index);
   }
 
+  // remove achivement by index and parent index
   removeAchivement(indexExp: number, indexAch: number) {
     const achiv = this.getAchivementFormArray(indexExp);
     achiv.removeAt(indexAch);
   }
 
+  // on submit event of form
   onSubmit() {
     console.log('Form Value 👉', this.userDetailsForm.value);
   }
